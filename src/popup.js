@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom/client'; // Use this for React 18
 const Home = () => {
     return (
         <div>
-            <h1>Home</h1>
+            <h1 className="text-3xl">Home</h1>
             <p>Welcome to the home page</p>
         </div>
     );

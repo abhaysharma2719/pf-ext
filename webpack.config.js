@@ -4,6 +4,7 @@ import { dirname } from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin'; // Import TerserPlugin for minification
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 // Define __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -14,7 +15,8 @@ import { jsLoader, cssLoader } from './webpack/loaders.js';  // Import loaders
 export default {
     entry: {
         popup: './src/popup.js',
-        content : './src/content.js'
+        content: './src/content.js',
+        input : './src/input.css'
     },
     output: {
         path: path.resolve(__dirname, 'extension'), // Correctly define output path
@@ -34,7 +36,10 @@ export default {
                     to: '.', // Path relative to output path
                 },
             ],
-        })
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'style.css', // Output CSS file name
+        }),
     ],
     optimization: {
         minimize: true, // Enable minimization
@@ -46,6 +51,15 @@ export default {
             },
             extractComments: false, // Prevents creating a comments file
         })],
+    },
+    devServer: {
+        static: {
+            directory: path.join(__dirname, 'extension'), // Serve content from this directory
+        },
+        compress: true, // Enable gzip compression
+        port: 9000, // Port to run the server
+        open: true, // Open the browser automatically
+        hot: true, // Enable hot module replacement
     },
     module: {
         rules: [jsLoader, cssLoader],  // Use defined loaders
