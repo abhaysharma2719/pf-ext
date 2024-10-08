@@ -2,6 +2,7 @@ import path from 'path';  // Import path module
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin'; // Import TerserPlugin for minification
 
 // Define __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -24,8 +25,19 @@ export default {
             filename: 'popup.html', // Output HTML file name
             scriptLoading: 'blocking', // Optional: load script in blocking mode
             chunks: ['popup']
-        }),
+        })
     ],
+    optimization: {
+        minimize: true, // Enable minimization
+        minimizer: [new TerserPlugin({
+            terserOptions: {
+                compress: {
+                    drop_console: true, // Remove console statements
+                },
+            },
+            extractComments: false, // Prevents creating a comments file
+        })],
+    },
     module: {
         rules: [jsLoader, cssLoader],  // Use defined loaders
     },
