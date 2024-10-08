@@ -2,6 +2,7 @@ import path from 'path';  // Import path module
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin'; // Import TerserPlugin for minification
 
 // Define __dirname
@@ -25,6 +26,14 @@ export default {
             filename: 'popup.html', // Output HTML file name
             scriptLoading: 'blocking', // Optional: load script in blocking mode
             chunks: ['popup']
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: './src/static-files/manifest.json', // Path to your source file
+                    to: '.', // Path relative to output path
+                },
+            ],
         })
     ],
     optimization: {
