@@ -15,8 +15,7 @@ import { jsLoader, cssLoader } from './webpack/loaders.js';  // Import loaders
 export default {
     entry: {
         popup: './src/popup.js',
-        content: './src/content.js',
-        input : './src/input.css'
+        content: './src/content.js'
     },
     output: {
         path: path.resolve(__dirname, 'extension'), // Correctly define output path
@@ -36,10 +35,7 @@ export default {
                     to: '.', // Path relative to output path
                 },
             ],
-        }),
-        new MiniCssExtractPlugin({
-            filename: 'style.css', // Output CSS file name
-        }),
+        })
     ],
     optimization: {
         minimize: true, // Enable minimization
