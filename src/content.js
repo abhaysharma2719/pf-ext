@@ -3,6 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+const SELECTOR_DIV = 'pf-vast';
 // Define your Content component
 const Content = () => {
     return (
@@ -28,20 +29,20 @@ const Content = () => {
     // Create a style element
     const style = document.createElement('style');
     style.innerHTML = `
-    div[id^="pf-vast"] {
-        position: relative; /* Required for positioning pseudo-elements */
-        border: 2px solid red; /* Red border around divs with IDs starting with 'pf-vast' */
-        padding: 8px; /* Optional: Adds space for better visibility */
-    }
+        div[id^="${SELECTOR_DIV}"] {
+            position: relative; /* Required for positioning pseudo-elements */
+            border: 2px solid red; /* Red border around divs with IDs starting with 'pf-vast' */
+            padding: 8px; /* Optional: Adds space for better visibility */
+        }
 
-    /* Adding a pseudo-element to all divs with IDs starting with 'pf-vast' */
-    div[id^="pf-vast"]::before {
-        content: '🔥 '; /* This can be any content you'd like to add */
-        color: red;
-        font-size: 1.2em;
-        margin-right: 4px;
-    }
-`;
+        /* Adding a pseudo-element to all divs with IDs starting with 'pf-vast' */
+        div[id^="${SELECTOR_DIV}"]::before {
+            content: ''; /* This can be any content you'd like to add */
+            color: red;
+            font-size: 1.2em;
+            margin-right: 4px;
+        }
+    `;
 
     // Append the style to the document head
     document.head.appendChild(style);
